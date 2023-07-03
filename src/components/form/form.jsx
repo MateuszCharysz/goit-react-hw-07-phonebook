@@ -3,8 +3,8 @@ import css from './Form.module.css';
 import Input from 'components/input/input';
 import Button from 'components/button/button';
 import { useDispatch, useSelector } from 'react-redux';
-import selectors from 'components/redux/selectors';
-import { addContact } from 'components/redux/contactsSlice';
+import selectors from '../../redux/selectors';
+import { addContact } from '../../redux/contactsSlice';
 
 export const Form = () => {
   const dispatch = useDispatch();

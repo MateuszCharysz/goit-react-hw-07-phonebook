@@ -4,10 +4,10 @@ import Input from './input/input';
 import ContactList from './contact-list/contact-list';
 import css from './App.module.css';
 import JsLocalStorage from './JsLocalStorage';
-import selectors from './redux/selectors';
+import selectors from '../redux/selectors';
 import { useDispatch, useSelector } from 'react-redux';
-import { setFilter } from './redux/filterSlice';
-import { deleteContact, replaceContacts } from './redux/contactsSlice';
+import { setFilter } from '../redux/filterSlice';
+import { deleteContact, replaceContacts } from '../redux/contactsSlice';
 
 export const App = () => {
   const dispatch = useDispatch();
