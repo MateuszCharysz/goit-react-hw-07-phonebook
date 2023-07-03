@@ -3,7 +3,7 @@ import { Form } from './form/form';
 import Input from './input/input';
 import ContactList from './contact-list/contact-list';
 import css from './App.module.css';
-import JsLocalStorage from './JsLocalStorage';
+import JsLocalStorage from '../js/JsLocalStorage';
 import selectors from '../redux/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilter } from '../redux/filterSlice';
