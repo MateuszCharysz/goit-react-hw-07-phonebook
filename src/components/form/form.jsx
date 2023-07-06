@@ -4,7 +4,7 @@ import Input from 'components/input/input';
 import Button from 'components/button/button';
 import { useDispatch, useSelector } from 'react-redux';
 import selectors from '../../redux/selectors';
-import { addContact } from '../../redux/contactsSlice';
+// import { addContact } from '../../redux/contactsSlice';
 
 export const Form = () => {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ export const Form = () => {
 
   const submitForm = () => {
     if (contacts.filter(contact => contact.name === name).length !== 1) {
-      dispatch(addContact(name, number));
+      // dispatch(addContact(name, number));
     } else {
       alert(`${name} is already in contacts.`);
     }

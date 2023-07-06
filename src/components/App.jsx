@@ -23,13 +23,13 @@ export const App = () => {
     }
   };
 
-  const filterContacts = () =>
-    contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase()),
-    );
+  // const filterContacts = () => // TODO should be put in arr in contact list component in this file
+  //   contacts.filter(contact =>
+  //     contact.name.toLowerCase().includes(filter.toLowerCase()),
+  //   );
 
   const removeContact = id => {
-    dispatch(deleteContact(id));
+    // dispatch(deleteContact(id));
   };
 
   useEffect(
@@ -44,7 +44,7 @@ export const App = () => {
         } else if (localStorage.getItem(key) !== null && firstRun === true) {
           console.log('update initial state from local storage');
           const lsState = JsLocalStorage.load(key);
-          dispatch(replaceContacts(lsState));
+          // dispatch(replaceContacts(lsState));
           setFirstRun(false);
         } else {
           JsLocalStorage.save(key, contacts);
@@ -71,7 +71,7 @@ export const App = () => {
         funcChange={filterHandler}
         stateField={filter}
       />
-      <ContactList arr={filterContacts()} btnHandler={removeContact} />
+      <ContactList arr={contacts} btnHandler={removeContact} />
     </div>
   );
 };

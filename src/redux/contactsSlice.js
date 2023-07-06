@@ -1,4 +1,5 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit';
+import operations from './operations';
 
 const contactsInitialState = { contacts: [], isLoading: false, error: null };
 
@@ -28,7 +29,20 @@ const contactsSlice = createSlice({
   //     return action.payload;
   //   },
   // },
-  extraReducers: {}
+  extraReducers: {
+    [operations.fetchContacts.pending](state) {
+      state.isLoading = true;
+    },
+    [operations.fetchContacts.fulfilled](state, action) {
+      state.isLoading = false;
+      state.error = null;
+      state.items = action.payload;
+    },
+    [operations.fetchContacts.rejected](state, action) {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+  },
 });
 
 // export const { addContact, deleteContact, replaceContacts } =
