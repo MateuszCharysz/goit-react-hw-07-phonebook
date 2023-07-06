@@ -9,6 +9,8 @@ const fetchContacts = createAsyncThunk('contacts/fetchAll', async (_,thunkAPI)=>
         return thunkAPI.rejectWithValue(e.message)
     }
 })
-const operations = {fetchContacts}
+
+const addContacts = createAsyncThunk('contacts/')
+const operations = {fetchContacts, addContacts}
 
 export default operations
