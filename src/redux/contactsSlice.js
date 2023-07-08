@@ -45,6 +45,7 @@ const contactsSlice = createSlice({
     //TODO czy zadziała?
     [fetchContactsToDisplay.pending]: handlePending,
     [fetchContactsToDisplay.fulfilled](state, action) {
+      console.log(action.payload)
       state.isLoading = false;
       state.error = null;
       state.contacts = action.payload;

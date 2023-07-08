@@ -72,7 +72,7 @@ export const App = () => {
         stateField={filter}
       />
       <ContactList
-        arr={operations.fetchContactsToDisplay()}
+        arr={contacts}
         btnHandler={removeContact}
       />
     </div>
