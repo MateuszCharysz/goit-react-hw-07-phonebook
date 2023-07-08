@@ -13,7 +13,7 @@ export const App = () => {
   const contacts = useSelector(selectContacts);
   const filter = useSelector(selectFilter);
 
-  const [firstRun, setFirstRun] = useState(true);
+  // const [firstRun, setFirstRun] = useState(true);
 
   const filterHandler = e => {
     const { name, value } = e.target;
@@ -22,10 +22,10 @@ export const App = () => {
     }
   };
 
-  // const filterContacts = () => // TODO should be put in arr in contact list component in this file
-  //   contacts.filter(contact =>
-  //     contact.name.toLowerCase().includes(filter.toLowerCase()),
-  //   );
+  const filterContacts = () => // TODO should be put in arr in contact list component in this file
+    contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase()),
+    );
 
   const removeContact = id => {
     // dispatch(deleteContact(id));
@@ -72,7 +72,7 @@ export const App = () => {
         stateField={filter}
       />
       <ContactList
-        arr={contacts}
+        arr={filterContacts()}
         btnHandler={removeContact}
       />
     </div>
