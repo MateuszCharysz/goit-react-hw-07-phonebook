@@ -28,7 +28,7 @@ export const App = () => {
     );
 
   const removeContact = id => {
-    // dispatch(deleteContact(id));
+    dispatch(operations.deleteContact(id));
   };
 
   useEffect(
