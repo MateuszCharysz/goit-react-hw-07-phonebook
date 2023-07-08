@@ -3,11 +3,10 @@ import { Form } from './form/form';
 import Input from './input/input';
 import ContactList from './contact-list/contact-list';
 import css from './App.module.css';
-import JsLocalStorage from '../js/JsLocalStorage';
 import {selectContacts, selectFilter} from '../redux/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilter } from '../redux/filterSlice';
-// import { deleteContact, replaceContacts } from '../redux/contactsSlice';
+import operations from 'redux/operations';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -33,28 +32,29 @@ export const App = () => {
   };
 
   useEffect(
-    (key = 'contacts') => {
-      if (
-        JSON.stringify(JsLocalStorage.load(key)) !== JSON.stringify(contacts)
-      ) {
-        if (localStorage.getItem(key) === null) {
-          console.log('no key')
-          JsLocalStorage.save(key, contacts);
-          setFirstRun(false);
-        } else if (localStorage.getItem(key) !== null && firstRun === true) {
-          console.log('update initial state from local storage');
-          const lsState = JsLocalStorage.load(key);
-          // dispatch(replaceContacts(lsState));
-          setFirstRun(false);
-        } else {
-          JsLocalStorage.save(key, contacts);
-        }
-      } else if (firstRun === true) {
-        setFirstRun(false);
-      } else {
-      }
+    () => {
+      dispatch(operations.fetchContactsToDisplay()) 
+      // if (
+      //   JSON.stringify(operations.fetchContactsToDisplay()) !== JSON.stringify(contacts)
+      // ) {
+      //   if (localStorage.getItem(key) === null) {
+      //     console.log('no key')
+      //     JsLocalStorage.save(key, contacts);
+      //     setFirstRun(false);
+      //   } else if (localStorage.getItem(key) !== null && firstRun === true) {
+      //     console.log('update initial state from local storage');
+      //     const lsState = JsLocalStorage.load(key);
+      //     // dispatch(replaceContacts(lsState));
+      //     setFirstRun(false);
+      //   } else {
+      //     JsLocalStorage.save(key, contacts);
+      //   }
+      // } else if (firstRun === true) {
+      //   setFirstRun(false);
+      // } else {
+      // }
     },
-    [contacts, firstRun, dispatch],
+    [dispatch],
   );
 
   return (
@@ -71,7 +71,10 @@ export const App = () => {
         funcChange={filterHandler}
         stateField={filter}
       />
-      <ContactList arr={contacts} btnHandler={removeContact} />
+      <ContactList
+        arr={operations.fetchContactsToDisplay()}
+        btnHandler={removeContact}
+      />
     </div>
   );
 };

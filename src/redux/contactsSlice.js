@@ -1,13 +1,19 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit';
 import operations from './operations';
+import { fetchContactsToDisplay } from './operations';
 
 const contactsInitialState = { contacts: [], isLoading: false, error: null };
 
-const handlePending = state => state.isLoading = true
+const handlePending = state => {
+  console.log('slice pending');
+  state.isLoading = true;
+};
 const handleRejected = (state, action) => {
-  state.isLoading=false;
-  state.error=action.payload
-}
+  console.log('rejected');
+  console.log(action);
+  state.isLoading = false;
+  state.error = action.payload;
+};
 
 const contactsSlice = createSlice({
   name: 'contacts',
@@ -35,24 +41,22 @@ const contactsSlice = createSlice({
   //     return action.payload;
   //   },
   // },
-  extraReducers: { //TODO czy zadziała?
-    [operations.fetchContactsToDisplay.pending]: handlePending,
-    [operations.fetchContactsToDisplay.fulfilled](state, action) {
+  extraReducers: {
+    //TODO czy zadziała?
+    [fetchContactsToDisplay.pending]: handlePending,
+    [fetchContactsToDisplay.fulfilled](state, action) {
       state.isLoading = false;
       state.error = null;
-      state.items = action.payload;
+      state.contacts = action.payload;
     },
-    [operations.fetchContactsToDisplay.rejected]: handleRejected,
-        [operations.putContactOnList.pending]: handlePending,
+    [fetchContactsToDisplay.rejected]: handleRejected,
+    [operations.putContactOnList.pending]: handlePending,
     [operations.putContactOnList.fulfilled](state, action) {
       state.isLoading = false;
       state.error = null;
-      console.log(action.payload)
-      console.log(state.contacts);
-            console.log(state.items);
-      state.items = action.payload; //TODO do sprawdzenia czy to będzie działać.
+      state.contacts = action.payload; //TODO do sprawdzenia czy to będzie działać.
     },
-    [operations.putContactOnList.rejected]:handleRejected,
+    [operations.putContactOnList.rejected]: handleRejected,
   },
 });
 

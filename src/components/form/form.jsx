@@ -3,12 +3,12 @@ import css from './Form.module.css';
 import Input from 'components/input/input';
 import Button from 'components/button/button';
 import { useDispatch, useSelector } from 'react-redux';
-import selectors from '../../redux/selectors';
+import  {selectContacts} from '../../redux/selectors';
 // import { addContact } from '../../redux/contactsSlice';
 
 export const Form = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(selectors.getContacts);
+  const contacts = useSelector(selectContacts);
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 

@@ -29,25 +29,34 @@ const mockApi = axios.create({
 });
 
 const mockApiGet = async () => {
-  const response = await mockApi.get('/contacts').catch(errorHandler());
-  return response;
+  const response = await mockApi.get('/contacts').catch(e => errorHandler(e));
+  return response.data;
+  // response.data,
 };
+
 const mockApiGetId = async id => {
-  const response = await mockApi.get(`/contacts/${id}`).catch(errorHandler());
-  return response;
+  const response = await mockApi
+    .get(`/contacts/${id}`)
+    .catch(e => errorHandler(e));
+  return response.data;
 };
 
 const mockApiPost = async () => {
-  const response = await mockApi.post('/contacts/').catch(errorHandler());
-  return response;
+  const response = await mockApi.post('/contacts/').catch(e => errorHandler(e));
+  return response.data;
 };
 
 const mockApiPut = async id => {
-  const response = await mockApi.put(`/contacts/${id}`).catch(errorHandler());
-  return response;}
+  const response = await mockApi
+    .put(`/contacts/${id}`)
+    .catch(e => errorHandler(e));
+  return response.data;
+};
 
 const mockApiDelete = async id => {
-  const response = await mockApi.delete(`/contacts/${id}`).catch(errorHandler());
+  const response = await mockApi
+    .delete(`/contacts/${id}`)
+    .catch(e => errorHandler(e));
   return response;
 };
 // const api = 'https://64a31d40b45881cc0ae625d4.mockapi.io/:endpoint'
@@ -57,7 +66,17 @@ const mockApiDelete = async id => {
 //POST /contacts
 //PUT /contacts/:id
 //DELETE /contacts/:id
-const api = {mockApiGet, mockApiGetId, mockApiPost, mockApiPut, mockApiDelete}
-
-
-export default api
+export const getPromiseData = async promise =>
+  await promise.then(data => {
+    console.log(data);
+    return data;
+  });
+const api = {
+  mockApiGet,
+  mockApiGetId,
+  mockApiPost,
+  mockApiPut,
+  mockApiDelete,
+  getPromiseData,
+};
+export default api;
