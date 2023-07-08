@@ -11,6 +11,7 @@ const handlePending = state => {
 const handleRejected = (state, action) => {
   console.log('rejected');
   console.log(action);
+  console.log(state)
   state.isLoading = false;
   state.error = action.payload;
 };
@@ -34,7 +35,7 @@ const contactsSlice = createSlice({
     [operations.postContactOnList.pending]: handlePending,
     [operations.postContactOnList.fulfilled](state, action) {
       handleFulfiledPartly(state);
-      console.log(action.payload);
+      console.log(action);
       state.contacts.push(action.payload);
     },
     [operations.postContactOnList.rejected]: handleRejected,

@@ -16,8 +16,8 @@ export const Form = () => {
   const submitForm = () => {
     if (contacts.filter(contact => contact.name === name).length !== 1) {
       let contact ={name: name, number: number, id: nanoid()}
-      const dataToSend = [...contacts, contact]
-      dispatch(operations.postContactOnList(dataToSend));
+      // const dataToSend = [...contacts, contact]
+      dispatch(operations.postContactOnList(contact));
       // dispatch(addContact(name, number));
     } else {
       alert(`${name} is already in contacts.`);

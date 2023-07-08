@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { nanoid } from '@reduxjs/toolkit';
+// import { nanoid } from '@reduxjs/toolkit';
 
 const API_ID = '64a31d40b45881cc0ae625d4';
 
@@ -35,25 +35,27 @@ const mockApiGet = async () => {
   // response.data,
 };
 
-const mockApiGetId = async id => {
+// const mockApiGetId = async id => {
+//   const response = await mockApi
+//     .get(`/contacts/${id}`)
+//     .catch(e => errorHandler(e));
+//   return response.data;
+// };
+
+const mockApiPost = async data => {
   const response = await mockApi
-    .get(`/contacts/${id}`)
-    .catch(e => errorHandler(e));
+    .post('/contacts/', data)
+    // .catch(e => errorHandler(e));
+  console.log(response);
   return response.data;
 };
 
-const mockApiPost = async (data) => {
-  const response = await mockApi.post('/contacts/',[data]).catch(e => errorHandler(e));
-  console.log(response)
-  return response;
-};
-
-const mockApiPut = async id => {
-  const response = await mockApi
-    .put(`/contacts/${id}`)
-    .catch(e => errorHandler(e));
-  return response;
-};
+// const mockApiPut = async id => {
+//   const response = await mockApi
+//     .put(`/contacts/${id}`)
+//     .catch(e => errorHandler(e));
+//   return response;
+// };
 
 const mockApiDelete = async id => {
   const response = await mockApi
@@ -69,8 +71,6 @@ const mockApiDelete = async id => {
 //PUT /contacts/:id
 //DELETE /contacts/:id
 
-console.log(mockApiPut(nanoid()));
-
 export const getPromiseData = async promise =>
   await promise.then(data => {
     console.log(data);
@@ -78,9 +78,9 @@ export const getPromiseData = async promise =>
   });
 const api = {
   mockApiGet,
-  mockApiGetId,
+  // mockApiGetId,
   mockApiPost,
-  mockApiPut,
+  // mockApiPut,
   mockApiDelete,
   getPromiseData,
 };
