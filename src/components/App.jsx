@@ -3,15 +3,15 @@ import { Form } from './form/form';
 import Input from './input/input';
 import ContactList from './contact-list/contact-list';
 import css from './App.module.css';
-import { selectContacts, selectFilter } from '../redux/selectors';
+import { selectFilter, selectFiltered } from '../redux/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilter } from '../redux/filterSlice';
 import operations from 'redux/operations';
 
 export const App = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(selectContacts);
   const filter = useSelector(selectFilter);
+  const filtered = useSelector(selectFiltered)
 
   const filterHandler = e => {
     const { name, value } = e.target;
@@ -19,11 +19,6 @@ export const App = () => {
       dispatch(setFilter(value));
     }
   };
-
-  const filterContacts = () =>
-    contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase()),
-    );
 
   const removeContact = id => {
     dispatch(operations.deleteContact(id));
@@ -47,7 +42,7 @@ export const App = () => {
         funcChange={filterHandler}
         stateField={filter}
       />
-      <ContactList arr={filterContacts()} btnHandler={removeContact} />
+      <ContactList arr={filtered} btnHandler={removeContact} />
     </div>
   );
 };
