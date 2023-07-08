@@ -4,11 +4,9 @@ import operations from './operations';
 const contactsInitialState = { contacts: [], isLoading: false, error: null };
 
 const handlePending = state => {
-  console.log('slice pending');
   state.isLoading = true;
 };
 const handleRejected = (state, action) => {
-  console.log('rejected');
   state.isLoading = false;
   state.error = action.payload;
 };

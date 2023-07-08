@@ -3,7 +3,12 @@ import { Form } from './form/form';
 import Input from './input/input';
 import ContactList from './contact-list/contact-list';
 import css from './App.module.css';
-import { selectFilter, selectFiltered } from '../redux/selectors';
+import {
+  selectFilter,
+  selectFiltered,
+  selectError,
+  selectLoading,
+} from '../redux/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilter } from '../redux/filterSlice';
 import operations from 'redux/operations';
@@ -11,7 +16,9 @@ import operations from 'redux/operations';
 export const App = () => {
   const dispatch = useDispatch();
   const filter = useSelector(selectFilter);
-  const filtered = useSelector(selectFiltered)
+  const filtered = useSelector(selectFiltered);
+  const error = useSelector(selectError);
+  const isLoading = useSelector(selectLoading);
 
   const filterHandler = e => {
     const { name, value } = e.target;
@@ -43,6 +50,7 @@ export const App = () => {
         stateField={filter}
       />
       <ContactList arr={filtered} btnHandler={removeContact} />
+      {isLoading && !error && <b>Request in progress</b>}
     </div>
   );
 };

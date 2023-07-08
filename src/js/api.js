@@ -49,7 +49,6 @@ const mockApiDelete = async id => {
 
 export const getPromiseData = async promise =>
   await promise.then(data => {
-    console.log(data);
     return data;
   });
 const api = {
