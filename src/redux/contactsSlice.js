@@ -19,28 +19,29 @@ const handleFulfiledPartly = state => {
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState: contactsInitialState,
-  extraReducers: {
-    [operations.fetchContactsToDisplay.pending]: handlePending,
-    [operations.fetchContactsToDisplay.fulfilled](state, action) {
-      handleFulfiledPartly(state);
-      state.contacts = action.payload;
-    },
-    [operations.fetchContactsToDisplay.rejected]: handleRejected,
-    [operations.postContactOnList.pending]: handlePending,
-    [operations.postContactOnList.fulfilled](state, action) {
-      handleFulfiledPartly(state);
-      state.contacts.push(action.payload);
-    },
-    [operations.postContactOnList.rejected]: handleRejected,
-    [operations.deleteContact.pending]: handlePending,
-    [operations.deleteContact.fulfilled](state, action) {
-      handleFulfiledPartly(state);
-      const index = state.contacts.findIndex(
-        contact => contact.id === action.payload.id,
-      );
-      state.contacts.splice(index, 1);
-    },
-    [operations.deleteContact.rejected]: handleRejected,
+  extraReducers: builder => {
+    builder
+      .addCase(operations.fetchContactsToDisplay.pending, handlePending)
+      .addCase(operations.fetchContactsToDisplay.fulfilled, (state, action) => {
+        handleFulfiledPartly(state);
+        state.contacts = action.payload;
+      })
+      .addCase(operations.fetchContactsToDisplay.rejected, handleRejected)
+      .addCase(operations.postContactOnList.pending, handlePending)
+      .addCase(operations.postContactOnList.fulfilled, (state, action) => {
+        handleFulfiledPartly(state);
+        state.contacts.push(action.payload);
+      })
+      .addCase(operations.postContactOnList.rejected, handleRejected)
+      .addCase(operations.deleteContact.pending, handlePending)
+      .addCase(operations.deleteContact.fulfilled, (state, action) => {
+        handleFulfiledPartly(state);
+        const index = state.contacts.findIndex(
+          contact => contact.id === action.payload.id,
+        );
+        state.contacts.splice(index, 1);
+      })
+      .addCase(operations.deleteContact.rejected, handleRejected);
   },
 });
 
