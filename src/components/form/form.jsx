@@ -3,8 +3,9 @@ import css from './Form.module.css';
 import Input from 'components/input/input';
 import Button from 'components/button/button';
 import { useDispatch, useSelector } from 'react-redux';
-import  {selectContacts} from '../../redux/selectors';
-// import { addContact } from '../../redux/contactsSlice';
+import { selectContacts } from '../../redux/selectors';
+import operations from 'redux/operations';
+import { nanoid } from '@reduxjs/toolkit';
 
 export const Form = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,9 @@ export const Form = () => {
 
   const submitForm = () => {
     if (contacts.filter(contact => contact.name === name).length !== 1) {
+      let contact ={name: name, number: number, id: nanoid()}
+      const dataToSend = [...contacts, contact]
+      dispatch(operations.postContactOnList(dataToSend));
       // dispatch(addContact(name, number));
     } else {
       alert(`${name} is already in contacts.`);

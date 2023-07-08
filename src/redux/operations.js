@@ -15,14 +15,13 @@ export const fetchContactsToDisplay = createAsyncThunk(
   },
 );
 
-const putContactOnList = createAsyncThunk(
+const postContactOnList = createAsyncThunk(
   'contacts/addContact',
-  async (id, thunkAPI) => {
+  async (data, thunkAPI) => {
     try {
-      const response = await api.mockApiPut(id);
-      console.log('id contact');
+      const response = await getPromiseData(api.mockApiPost(data));
       console.logO(response);
-      return response.data;
+      return response;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
     }
@@ -34,13 +33,13 @@ const deleteContact = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const response = await getPromiseData(api.mockApiDelete(id));
-      console.log(response.data)
-      return response.data
+      console.log(response.data);
+      return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
     }
   },
 );
-const operations = { fetchContactsToDisplay, putContactOnList, deleteContact };
+const operations = { fetchContactsToDisplay, postContactOnList, deleteContact };
 
 export default operations;

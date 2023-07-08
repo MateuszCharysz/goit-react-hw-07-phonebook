@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Form } from './form/form';
 import Input from './input/input';
 import ContactList from './contact-list/contact-list';
 import css from './App.module.css';
-import {selectContacts, selectFilter} from '../redux/selectors';
+import { selectContacts, selectFilter } from '../redux/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilter } from '../redux/filterSlice';
 import operations from 'redux/operations';
@@ -13,8 +13,6 @@ export const App = () => {
   const contacts = useSelector(selectContacts);
   const filter = useSelector(selectFilter);
 
-  // const [firstRun, setFirstRun] = useState(true);
-
   const filterHandler = e => {
     const { name, value } = e.target;
     if (name === 'filter') {
@@ -22,7 +20,7 @@ export const App = () => {
     }
   };
 
-  const filterContacts = () => // TODO should be put in arr in contact list component in this file
+  const filterContacts = () =>
     contacts.filter(contact =>
       contact.name.toLowerCase().includes(filter.toLowerCase()),
     );
@@ -31,31 +29,9 @@ export const App = () => {
     dispatch(operations.deleteContact(id));
   };
 
-  useEffect(
-    () => {
-      dispatch(operations.fetchContactsToDisplay()) 
-      // if (
-      //   JSON.stringify(operations.fetchContactsToDisplay()) !== JSON.stringify(contacts)
-      // ) {
-      //   if (localStorage.getItem(key) === null) {
-      //     console.log('no key')
-      //     JsLocalStorage.save(key, contacts);
-      //     setFirstRun(false);
-      //   } else if (localStorage.getItem(key) !== null && firstRun === true) {
-      //     console.log('update initial state from local storage');
-      //     const lsState = JsLocalStorage.load(key);
-      //     // dispatch(replaceContacts(lsState));
-      //     setFirstRun(false);
-      //   } else {
-      //     JsLocalStorage.save(key, contacts);
-      //   }
-      // } else if (firstRun === true) {
-      //   setFirstRun(false);
-      // } else {
-      // }
-    },
-    [dispatch],
-  );
+  useEffect(() => {
+    dispatch(operations.fetchContactsToDisplay());
+  }, [dispatch]);
 
   return (
     <div className={css.container}>
@@ -71,10 +47,7 @@ export const App = () => {
         funcChange={filterHandler}
         stateField={filter}
       />
-      <ContactList
-        arr={filterContacts()}
-        btnHandler={removeContact}
-      />
+      <ContactList arr={filterContacts()} btnHandler={removeContact} />
     </div>
   );
 };

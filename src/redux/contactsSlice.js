@@ -23,31 +23,7 @@ const handleFulfiledPartly = state => {
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState: contactsInitialState,
-  // reducers: {
-  //   addContact: {
-  //     reducer(state, action) {
-  //       state.push(action.payload);
-  //     },
-  //     prepare(formName, formNumber) {
-  //       return {
-  //         payload: {
-  //           id: nanoid(),
-  //           name: formName,
-  //           number: formNumber,
-  //         },
-  //       };
-  //     },
-  //   },
-  //   deleteContact(state, action) {
-  //     const index = state.findIndex(contact => contact.id === action.payload);
-  //     state.splice(index, 1);
-  //   },
-  //   replaceContacts(state, action) {
-  //     return action.payload;
-  //   },
-  // },
   extraReducers: {
-    //TODO czy zadziała?
     [operations.fetchContactsToDisplay.pending]: handlePending,
     [operations.fetchContactsToDisplay.fulfilled](state, action) {
       console.log(action.payload);
@@ -55,12 +31,13 @@ const contactsSlice = createSlice({
       state.contacts = action.payload;
     },
     [operations.fetchContactsToDisplay.rejected]: handleRejected,
-    [operations.putContactOnList.pending]: handlePending,
-    [operations.putContactOnList.fulfilled](state, action) {
+    [operations.postContactOnList.pending]: handlePending,
+    [operations.postContactOnList.fulfilled](state, action) {
       handleFulfiledPartly(state);
-      state.contacts = action.payload; //TODO do sprawdzenia czy to będzie działać.
+      console.log(action.payload);
+      state.contacts.push(action.payload);
     },
-    [operations.putContactOnList.rejected]: handleRejected,
+    [operations.postContactOnList.rejected]: handleRejected,
     [operations.deleteContact.pending]: handlePending,
     [operations.deleteContact.fulfilled](state, action) {
       handleFulfiledPartly(state);
@@ -76,3 +53,4 @@ const contactsSlice = createSlice({
 // export const { addContact, deleteContact, replaceContacts } =
 //   contactsSlice.actions;
 export const contactsReducer = contactsSlice.reducer;
+export const createId=nanoid()
