@@ -1,6 +1,6 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit';
 import operations from './operations';
-import { fetchContactsToDisplay } from './operations';
+// import { fetchContactsToDisplay } from './operations';
 
 const contactsInitialState = { contacts: [], isLoading: false, error: null };
 
@@ -13,6 +13,11 @@ const handleRejected = (state, action) => {
   console.log(action);
   state.isLoading = false;
   state.error = action.payload;
+};
+
+const handleFulfiledPartly = state => {
+  state.isLoading = false;
+  state.error = null;
 };
 
 const contactsSlice = createSlice({
@@ -43,21 +48,28 @@ const contactsSlice = createSlice({
   // },
   extraReducers: {
     //TODO czy zadziała?
-    [fetchContactsToDisplay.pending]: handlePending,
-    [fetchContactsToDisplay.fulfilled](state, action) {
-      console.log(action.payload)
-      state.isLoading = false;
-      state.error = null;
+    [operations.fetchContactsToDisplay.pending]: handlePending,
+    [operations.fetchContactsToDisplay.fulfilled](state, action) {
+      console.log(action.payload);
+      handleFulfiledPartly(state);
       state.contacts = action.payload;
     },
-    [fetchContactsToDisplay.rejected]: handleRejected,
+    [operations.fetchContactsToDisplay.rejected]: handleRejected,
     [operations.putContactOnList.pending]: handlePending,
     [operations.putContactOnList.fulfilled](state, action) {
-      state.isLoading = false;
-      state.error = null;
+      handleFulfiledPartly(state);
       state.contacts = action.payload; //TODO do sprawdzenia czy to będzie działać.
     },
     [operations.putContactOnList.rejected]: handleRejected,
+    [operations.deleteContact.pending]: handlePending,
+    [operations.deleteContact.fulfilled](state, action) {
+      handleFulfiledPartly(state);
+      const index = state.contacts.findIndex(
+        contact => contact.id === action.payload.id,
+      );
+      state.contacts.splice(index, 1);
+    },
+    [operations.deleteContact.rejected]: handleRejected,
   },
 });
 
