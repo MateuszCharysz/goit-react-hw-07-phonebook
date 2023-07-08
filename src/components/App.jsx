@@ -4,15 +4,15 @@ import Input from './input/input';
 import ContactList from './contact-list/contact-list';
 import css from './App.module.css';
 import JsLocalStorage from '../js/JsLocalStorage';
-import selectors from '../redux/selectors';
+import {selectContacts, selectFilter} from '../redux/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilter } from '../redux/filterSlice';
-import { deleteContact, replaceContacts } from '../redux/contactsSlice';
+// import { deleteContact, replaceContacts } from '../redux/contactsSlice';
 
 export const App = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(selectors.getContacts);
-  const filter = useSelector(selectors.getFilter);
+  const contacts = useSelector(selectContacts);
+  const filter = useSelector(selectFilter);
 
   const [firstRun, setFirstRun] = useState(true);
 

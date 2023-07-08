@@ -1,6 +1,4 @@
-const getContacts = state => state.contacts;
-const getFilter = state => state.filter;
+export const selectContacts = state => state.contacts;
+export const selectFilter = state => state.filter;
 
-const selectors = { getContacts, getFilter};
 
-export default selectors
