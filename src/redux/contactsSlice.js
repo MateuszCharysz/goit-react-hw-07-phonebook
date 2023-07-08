@@ -1,6 +1,5 @@
-import { createSlice, nanoid } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import operations from './operations';
-// import { fetchContactsToDisplay } from './operations';
 
 const contactsInitialState = { contacts: [], isLoading: false, error: null };
 
@@ -10,7 +9,6 @@ const handlePending = state => {
 };
 const handleRejected = (state, action) => {
   console.log('rejected');
-  console.log(action);
   state.isLoading = false;
   state.error = action.payload;
 };
@@ -26,7 +24,6 @@ const contactsSlice = createSlice({
   extraReducers: {
     [operations.fetchContactsToDisplay.pending]: handlePending,
     [operations.fetchContactsToDisplay.fulfilled](state, action) {
-      console.log(action.payload);
       handleFulfiledPartly(state);
       state.contacts = action.payload;
     },
@@ -34,7 +31,6 @@ const contactsSlice = createSlice({
     [operations.postContactOnList.pending]: handlePending,
     [operations.postContactOnList.fulfilled](state, action) {
       handleFulfiledPartly(state);
-      console.log(action);
       state.contacts.push(action.payload);
     },
     [operations.postContactOnList.rejected]: handleRejected,
@@ -50,7 +46,4 @@ const contactsSlice = createSlice({
   },
 });
 
-// export const { addContact, deleteContact, replaceContacts } =
-//   contactsSlice.actions;
 export const contactsReducer = contactsSlice.reducer;
-export const createId=nanoid()
